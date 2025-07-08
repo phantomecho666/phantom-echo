@@ -1,20 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>phantom echo</title>
   <style>
     body {
       margin: 0;
-      padding: 0;
-      background: black;
-      color: white;
-      font-family: sans-serif;
+      background-color: black;
       overflow: hidden;
     }
 
-    .video-bg {
+    video.bg {
       position: fixed;
       top: 0;
       left: 0;
@@ -22,53 +19,69 @@
       height: 100vh;
       object-fit: cover;
       z-index: -2;
+      filter: brightness(0.6);
     }
 
     .vignette {
       position: fixed;
       top: 0;
       left: 0;
-      width: 100%;
-      height: 100%;
+      width: 100vw;
+      height: 100vh;
+      background: radial-gradient(ellipse at center, rgba(0,0,0,0) 40%, rgba(0,0,0,0.8) 100%);
       z-index: -1;
-      pointer-events: none;
-      background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0) 40%, rgba(0, 0, 0, 0.7) 100%);
     }
 
-    .echo {
+    .echo-text {
+      color: white;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 2.5em;
+      text-align: center;
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      font-size: 2rem;
-      letter-spacing: 0.1em;
-      opacity: 0;
-      animation: fadeInEcho 2s ease-out 4s forwards, pulse 3s infinite ease-in-out;
+      letter-spacing: 0.2em;
+      animation: fadeIn 2s ease-in-out;
     }
 
-    @keyframes fadeInEcho {
+    .whisper-text {
+      opacity: 0;
+      color: #ccc;
+      font-size: 1.1em;
+      font-family: 'Courier New', Courier, monospace;
+      position: absolute;
+      bottom: 6%;
+      left: 50%;
+      transform: translateX(-50%);
+      animation: fadeInWhisper 2s ease-in-out 3s forwards;
+      white-space: nowrap;
+    }
+
+    @keyframes fadeInWhisper {
       to {
         opacity: 1;
       }
     }
 
-    @keyframes pulse {
-      0%, 100% {
-        opacity: 0.8;
+    @keyframes fadeIn {
+      0% {
+        opacity: 0;
+        transform: translate(-50%, -55%);
       }
-      50% {
+      100% {
         opacity: 1;
+        transform: translate(-50%, -50%);
       }
     }
   </style>
 </head>
 <body>
-  <video class="video-bg" autoplay muted loop>
-    <source src="78-135733055.mp4" type="video/mp4" />
-    Your browser does not support the video tag.
+  <video class="bg" autoplay muted loop>
+    <source src="rain.mp4" type="video/mp4">
   </video>
-
   <div class="vignette"></div>
-  <div class="echo">echo</div>
+  <div class="echo-text">echo</div>
+  <div class="whisper-text">If you're here... then you already know.</div>
 </body>
 </html>
