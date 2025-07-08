@@ -1,87 +1,82 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>phantom echo</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>echo</title>
   <style>
-    body {
+    html, body {
       margin: 0;
-      background-color: black;
+      padding: 0;
       overflow: hidden;
+      background: black;
+      font-family: 'Noto Sans JP', sans-serif;
     }
 
-    video.bg {
+    video {
       position: fixed;
-      top: 0;
-      left: 0;
+      top: 0; left: 0;
       width: 100vw;
       height: 100vh;
       object-fit: cover;
-      z-index: -2;
-      filter: brightness(0.6);
     }
 
+    /* Мягкое затемнение от краёв */
     .vignette {
       position: fixed;
-      top: 0;
-      left: 0;
+      top: 0; left: 0;
       width: 100vw;
       height: 100vh;
-      background: radial-gradient(ellipse at center, rgba(0,0,0,0) 40%, rgba(0,0,0,0.8) 100%);
-      z-index: -1;
+      pointer-events: none;
+      background: radial-gradient(ellipse at center, rgba(0,0,0,0) 50%, rgba(0,0,0,0.6) 100%);
     }
 
-    .echo-text {
-      color: white;
-      font-family: 'Courier New', Courier, monospace;
-      font-size: 2.5em;
-      text-align: center;
+    .text-overlay {
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      letter-spacing: 0.2em;
-      animation: fadeIn 2s ease-in-out;
+      color: white;
+      font-size: 1.4rem;
+      letter-spacing: 1px;
+      text-align: center;
+      opacity: 0;
+      animation: fadeIn 4s ease-in-out forwards 2s;
+      white-space: pre-line;
+      padding: 0 1.5rem;
     }
 
-    .whisper-text {
-      opacity: 0;
-      color: #ccc;
-      font-size: 1.1em;
-      font-family: 'Courier New', Courier, monospace;
+    .secondary-text {
       position: absolute;
-      bottom: 6%;
+      bottom: 8%;
       left: 50%;
       transform: translateX(-50%);
-      animation: fadeInWhisper 2s ease-in-out 3s forwards;
-      white-space: nowrap;
-    }
-
-    @keyframes fadeInWhisper {
-      to {
-        opacity: 1;
-      }
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 1rem;
+      font-style: italic;
+      opacity: 0;
+      animation: fadeIn 3s ease-in-out forwards 5s;
     }
 
     @keyframes fadeIn {
-      0% {
-        opacity: 0;
-        transform: translate(-50%, -55%);
-      }
-      100% {
-        opacity: 1;
-        transform: translate(-50%, -50%);
-      }
+      to { opacity: 1; }
     }
   </style>
 </head>
 <body>
-  <video class="bg" autoplay muted loop>
-    <source src="78-135733055.mp4" type="video/mp4">
+  <video autoplay loop muted playsinline>
+    <source src="78-135733055.mp4" type="video/mp4" />
   </video>
+
   <div class="vignette"></div>
-  <div class="echo-text">echo</div>
-  <div class="whisper-text">If you're here... then you already know.</div>
+
+  <div class="text-overlay">
+    this time, it’s nothing —<br>  
+    maybe just echo.
+  </div>
+
+  <div class="secondary-text">
+    If you're here... then you already know.
+  </div>
 </body>
 </html>
