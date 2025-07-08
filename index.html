@@ -1,52 +1,74 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>echo</title>
+  <title>phantom echo</title>
   <style>
-    html, body {
+    body {
       margin: 0;
       padding: 0;
-      overflow: hidden;
       background: black;
-      font-family: 'Noto Sans JP', sans-serif;
+      color: white;
+      font-family: sans-serif;
+      overflow: hidden;
     }
-    video {
+
+    .video-bg {
       position: fixed;
-      top: 0; left: 0;
+      top: 0;
+      left: 0;
       width: 100vw;
       height: 100vh;
       object-fit: cover;
+      z-index: -2;
     }
-    .text-overlay {
+
+    .vignette {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      pointer-events: none;
+      background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0) 40%, rgba(0, 0, 0, 0.7) 100%);
+    }
+
+    .echo {
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      color: white;
-      font-size: 1.4rem;
-      letter-spacing: 1px;
-      text-align: center;
+      font-size: 2rem;
+      letter-spacing: 0.1em;
       opacity: 0;
-      animation: fadeIn 4s ease-in-out forwards 2s;
-      white-space: pre-line;
-      padding: 0 1.5rem;
+      animation: fadeInEcho 2s ease-out 4s forwards, pulse 3s infinite ease-in-out;
     }
 
-    @keyframes fadeIn {
-      to { opacity: 1; }
+    @keyframes fadeInEcho {
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        opacity: 0.8;
+      }
+      50% {
+        opacity: 1;
+      }
     }
   </style>
 </head>
 <body>
-  <video autoplay loop muted playsinline>
+  <video class="video-bg" autoplay muted loop>
     <source src="78-135733055.mp4" type="video/mp4" />
+    Your browser does not support the video tag.
   </video>
 
-  <div class="text-overlay">
-    this time, it’s nothing —<br>  
-    maybe just echo.
-  </div>
+  <div class="vignette"></div>
+  <div class="echo">echo</div>
 </body>
 </html>
