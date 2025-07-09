@@ -65,14 +65,31 @@
   <script defer data-domain="phantomecho666.github.io/phantom-echo" src="https://plausible.io/js/script.js"></script>
 </head>
 <body>
+  <!-- Background video -->
   <video autoplay loop muted playsinline>
     <source src="78-135733055.mp4" type="video/mp4" />
   </video>
 
-  <!-- Background audio -->
-  <audio autoplay loop preload="auto" style="display: none;">
-    <source src="breath,train,rain.mp3" type="audio/mp3" />
+  <!-- Background audio (starts on first user interaction) -->
+  <audio id="bg-audio" preload="auto" loop>
+    <source src="breath,train,rain.mp3" type="audio/mp3">
   </audio>
+
+  <script>
+    function enableAudioOnce() {
+      const audio = document.getElementById("bg-audio");
+      if (audio) {
+        audio.play().catch(e => {
+          console.log("Playback failed:", e);
+        });
+      }
+      document.removeEventListener("click", enableAudioOnce);
+      document.removeEventListener("touchstart", enableAudioOnce);
+    }
+
+    document.addEventListener("click", enableAudioOnce);
+    document.addEventListener("touchstart", enableAudioOnce);
+  </script>
 
   <div class="vignette"></div>
 
