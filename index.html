@@ -61,38 +61,40 @@
     }
   </style>
 
-  <!-- Plausible Analytics script -->
+  <!-- Plausible Analytics -->
   <script defer data-domain="phantomecho666.github.io/phantom-echo" src="https://plausible.io/js/script.js"></script>
 </head>
 <body>
-  <!-- Background video -->
+  <!-- Фоновое видео -->
   <video autoplay loop muted playsinline>
     <source src="78-135733055.mp4" type="video/mp4" />
   </video>
 
-  <!-- Background audio (starts on first user interaction) -->
+  <!-- Аудио -->
   <audio id="bg-audio" preload="auto" loop>
     <source src="breath,train,rain.mp3" type="audio/mp3">
   </audio>
 
+  <!-- Запуск звука при первом касании -->
   <script>
-    function enableAudioOnce() {
-      const audio = document.getElementById("bg-audio");
-      if (audio) {
-        audio.play().catch(e => {
-          console.log("Playback failed:", e);
+    const audio = document.getElementById('bg-audio');
+
+    function tryPlayAudio() {
+      if (audio && audio.paused) {
+        audio.play().catch(err => {
+          console.log("Audio blocked:", err);
         });
       }
-      document.removeEventListener("click", enableAudioOnce);
-      document.removeEventListener("touchstart", enableAudioOnce);
     }
 
-    document.addEventListener("click", enableAudioOnce);
-    document.addEventListener("touchstart", enableAudioOnce);
+    window.addEventListener("touchstart", tryPlayAudio, { once: true });
+    window.addEventListener("mousedown", tryPlayAudio, { once: true });
   </script>
 
+  <!-- Виньетка -->
   <div class="vignette"></div>
 
+  <!-- Текст -->
   <div class="text-overlay">
     this time, it’s nothing — maybe just echo.
   </div>
